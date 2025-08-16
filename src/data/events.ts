@@ -1,0 +1,77 @@
+import { Event } from '@/components/cards/EventCard';
+
+export const upcomingEvents: Event[] = [
+  {
+    id: '1',
+    title: 'AI in Veterinary Medicine: Current Applications and Future Trends',
+    description: 'Join us for an interactive discussion on how artificial intelligence is transforming veterinary diagnostics, treatment planning, and practice management.',
+    date: '2024-09-15',
+    time: '2:00 PM EST',
+    location: 'Virtual Event',
+    type: 'virtual',
+    rsvpLink: 'https://zoom.us/webinar/register/example',
+  },
+  {
+    id: '2',
+    title: 'Vet Tech Herd Networking Meetup - San Francisco',
+    description: 'In-person networking event for veterinarians in tech. Connect with like-minded professionals, share experiences, and explore collaboration opportunities.',
+    date: '2024-09-28',
+    time: '6:00 PM PST',
+    location: 'San Francisco, CA',
+    type: 'in-person',
+    rsvpLink: 'https://eventbrite.com/event/example',
+  },
+  {
+    id: '3',
+    title: 'Building Pet Health Apps: UX/UI Best Practices',
+    description: 'A workshop focused on designing user-friendly applications for pet owners and veterinary professionals.',
+    date: '2024-10-12',
+    time: '1:00 PM EST',
+    location: 'Virtual Event',
+    type: 'virtual',
+    rsvpLink: 'https://zoom.us/webinar/register/example2',
+  },
+  {
+    id: '4',
+    title: 'Data Science in Animal Health Research',
+    description: 'Explore how data science techniques are being applied to advance animal health research and improve veterinary outcomes.',
+    date: '2024-10-25',
+    time: '3:00 PM EST',
+    location: 'Hybrid - NYC & Virtual',
+    type: 'hybrid',
+    rsvpLink: 'https://meetup.com/event/example',
+  },
+];
+
+export const pastEvents: Event[] = [
+  {
+    id: 'p1',
+    title: 'Introduction to the Vet Tech Herd Community',
+    description: 'Our inaugural event introducing the community mission, goals, and upcoming initiatives.',
+    date: '2024-07-20',
+    time: '2:00 PM EST',
+    location: 'Virtual Event',
+    type: 'virtual',
+    isPast: true,
+  },
+  {
+    id: 'p2',
+    title: 'Career Transition: From Clinical Practice to Tech',
+    description: 'Panel discussion with veterinarians who successfully transitioned into technology roles.',
+    date: '2024-08-10',
+    time: '7:00 PM EST',
+    location: 'Virtual Event',
+    type: 'virtual',
+    isPast: true,
+  },
+  {
+    id: 'p3',
+    title: 'Startup Pitch Night - Pet Tech Innovations',
+    description: 'Veterinarians presented their tech startup ideas and received feedback from industry experts.',
+    date: '2024-08-25',
+    time: '6:00 PM EST',
+    location: 'Austin, TX',
+    type: 'in-person',
+    isPast: true,
+  },
+];
