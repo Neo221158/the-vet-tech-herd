@@ -1,7 +1,17 @@
-import { Users, MapPin, Globe, Network, UserCheck, Building2, Zap, Heart } from 'lucide-react';
+import { Users, MapPin, Globe, Network, UserCheck, Building2, Zap, Heart, ExternalLink } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+
+// Import company logos
+import vetologyLogo from '@/assets/logos/vetology-logo.png';
+import petmedixLogo from '@/assets/logos/petmedix-logo.png';
+import vettechLogo from '@/assets/logos/vettech-logo.png';
+import animaldatalabsLogo from '@/assets/logos/animaldatalabs-logo.png';
+import vetcloudLogo from '@/assets/logos/vetcloud-logo.png';
+import smartvetLogo from '@/assets/logos/smartvet-logo.png';
+import mobivetLogo from '@/assets/logos/mobivet-logo.png';
+import vetconnectLogo from '@/assets/logos/vetconnect-logo.png';
 
 export default function MappingCommunity() {
   const stats = [
@@ -22,14 +32,62 @@ export default function MappingCommunity() {
   ];
 
   const companies = [
-    { name: 'Vetology', members: 12, type: 'Veterinary Software' },
-    { name: 'PetMedix', members: 8, type: 'Digital Health' },
-    { name: 'VetTech Solutions', members: 15, type: 'Practice Management' },
-    { name: 'Animal Data Labs', members: 6, type: 'Data Analytics' },
-    { name: 'VetCloud', members: 9, type: 'Cloud Services' },
-    { name: 'SmartVet AI', members: 7, type: 'AI & Machine Learning' },
-    { name: 'MobiVet', members: 5, type: 'Mobile Solutions' },
-    { name: 'VetConnect', members: 4, type: 'Telemedicine' },
+    { 
+      name: 'Vetology', 
+      members: 12, 
+      type: 'Veterinary Software',
+      logo: vetologyLogo,
+      linkedinUrl: 'https://www.linkedin.com/company/vetology-israel'
+    },
+    { 
+      name: 'PetMedix', 
+      members: 8, 
+      type: 'Digital Health',
+      logo: petmedixLogo,
+      linkedinUrl: 'https://www.linkedin.com/company/petmedix'
+    },
+    { 
+      name: 'VetTech Solutions', 
+      members: 15, 
+      type: 'Practice Management',
+      logo: vettechLogo,
+      linkedinUrl: 'https://www.linkedin.com/company/vettech-solutions'
+    },
+    { 
+      name: 'Animal Data Labs', 
+      members: 6, 
+      type: 'Data Analytics',
+      logo: animaldatalabsLogo,
+      linkedinUrl: 'https://www.linkedin.com/company/animal-data-labs'
+    },
+    { 
+      name: 'VetCloud', 
+      members: 9, 
+      type: 'Cloud Services',
+      logo: vetcloudLogo,
+      linkedinUrl: 'https://www.linkedin.com/company/vetcloud-israel'
+    },
+    { 
+      name: 'SmartVet AI', 
+      members: 7, 
+      type: 'AI & Machine Learning',
+      logo: smartvetLogo,
+      linkedinUrl: 'https://www.linkedin.com/company/smartvet-ai'
+    },
+    { 
+      name: 'MobiVet', 
+      members: 5, 
+      type: 'Mobile Solutions',
+      logo: mobivetLogo,
+      linkedinUrl: 'https://www.linkedin.com/company/mobivet'
+    },
+    { 
+      name: 'VetConnect', 
+      members: 4, 
+      type: 'Telemedicine',
+      logo: vetconnectLogo,
+      linkedinUrl: 'https://www.linkedin.com/company/vetconnect'
+    },
   ];
 
   return (
@@ -128,16 +186,29 @@ export default function MappingCommunity() {
               <h3 className="text-xl font-semibold mb-6">Leading Companies</h3>
               <div className="space-y-3">
                 {companies.map((company, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                    <div className="flex items-center space-x-3">
-                      <Building2 className="h-4 w-4 text-primary" />
+                  <a 
+                    key={index} 
+                    href={company.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between p-4 bg-muted/50 rounded-lg hover:bg-muted/70 transition-colors cursor-pointer group"
+                  >
+                    <div className="flex items-center space-x-4">
+                      <img 
+                        src={company.logo} 
+                        alt={`${company.name} logo`} 
+                        className="h-10 w-10 rounded-lg object-cover"
+                      />
                       <div>
-                        <span className="font-medium block">{company.name}</span>
+                        <div className="flex items-center space-x-2">
+                          <span className="font-medium group-hover:text-primary transition-colors">{company.name}</span>
+                          <ExternalLink className="h-3 w-3 text-muted-foreground group-hover:text-primary transition-colors" />
+                        </div>
                         <span className="text-xs text-muted-foreground">{company.type}</span>
                       </div>
                     </div>
                     <Badge variant="secondary">{company.members}</Badge>
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>
