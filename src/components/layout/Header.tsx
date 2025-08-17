@@ -28,7 +28,7 @@ export function Header() {
             </div>
             <div>
               <div className="font-bold text-xl text-foreground">The Vet Tech Herd</div>
-              <div className="text-xs text-muted-foreground">Vets in Technology</div>
+              <div className="text-xs text-muted-foreground">Israeli Vets in Technology</div>
             </div>
           </Link>
 
