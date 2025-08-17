@@ -30,7 +30,7 @@ export default function Contact() {
                   {[
                     { icon: Mail, title: 'Email', value: 'isrvettech@gmail.com', href: 'mailto:isrvettech@gmail.com' },
                     { icon: Linkedin, title: 'LinkedIn', value: 'The Vet Tech Herd', href: 'https://www.linkedin.com/groups/8502307/' },
-                    { icon: MessageCircle, title: 'WhatsApp Community', value: 'Join our chat', href: '#' },
+                    { icon: MessageCircle, title: 'WhatsApp Community', value: 'Join our chat', href: 'https://chat.whatsapp.com/HAtlBuHPNIrGG0j4jk3fqO?mode=ems_copy_h_c' },
                     { icon: MapPin, title: 'Location', value: 'Global Community', href: null },
                   ].map((contact, index) => (
                     <div key={index} className="flex items-center gap-4">
@@ -61,6 +61,32 @@ export default function Contact() {
                   <p>• Share knowledge and support fellow community members</p>
                   <p>• Keep discussions relevant to veterinary technology topics</p>
                   <p>• No spam or self-promotion without prior approval</p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-none shadow-lg">
+                <CardHeader>
+                  <CardTitle>Join WhatsApp Community</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center space-y-4">
+                  <p className="text-sm text-muted-foreground">
+                    Scan the QR code to join our WhatsApp community
+                  </p>
+                  <div className="flex justify-center">
+                    <img 
+                      src="/lovable-uploads/06e7a4a7-7079-4adf-9773-0da345900732.png" 
+                      alt="WhatsApp Community QR Code"
+                      className="w-32 h-32 object-contain"
+                    />
+                  </div>
+                  <a 
+                    href="https://chat.whatsapp.com/HAtlBuHPNIrGG0j4jk3fqO?mode=ems_copy_h_c"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block text-primary hover:text-primary/80 transition-colors text-sm font-medium"
+                  >
+                    Or click here to join directly
+                  </a>
                 </CardContent>
               </Card>
             </div>
