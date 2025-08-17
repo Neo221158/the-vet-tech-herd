@@ -6,6 +6,8 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Send } from 'lucide-react';
+import { contactFormSchema, type ContactFormData } from '@/lib/validations';
+import { sanitizeString, sanitizeEmail, checkRateLimit } from '@/lib/security';
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -22,7 +24,29 @@ export function ContactForm() {
     setIsSubmitting(true);
 
     try {
-      // Simulate form submission
+      // Check rate limiting
+      if (!checkRateLimit('contact-form', 3, 300000)) { // 3 attempts per 5 minutes
+        toast({
+          title: "Too many attempts",
+          description: "Please wait before submitting again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Sanitize and validate form data
+      const sanitizedData = {
+        name: sanitizeString(formData.name),
+        email: sanitizeEmail(formData.email),
+        subject: sanitizeString(formData.subject),
+        message: sanitizeString(formData.message),
+      };
+
+      // Validate with Zod schema
+      const validatedData = contactFormSchema.parse(sanitizedData);
+      
+      // TODO: Replace with actual Supabase submission
+      // This requires connecting to Supabase first
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       toast({
@@ -31,10 +55,10 @@ export function ContactForm() {
       });
       
       setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Error sending message",
-        description: "Please try again later.",
+        description: error?.issues?.[0]?.message || "Please try again later.",
         variant: "destructive",
       });
     } finally {
@@ -43,9 +67,13 @@ export function ContactForm() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    // Basic sanitization on input change
+    const sanitizedValue = name === 'email' ? sanitizeEmail(value) : sanitizeString(value);
+    
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: sanitizedValue,
     });
   };
 
