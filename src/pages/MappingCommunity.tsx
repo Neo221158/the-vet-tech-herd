@@ -21,15 +21,15 @@ export default function MappingCommunity() {
     { title: 'QA Engineers', count: 10, color: 'bg-pink-500' },
   ];
 
-  const locations = [
-    { city: 'Tel Aviv', members: 52 },
-    { city: 'Jerusalem', members: 18 },
-    { city: 'Haifa', members: 15 },
-    { city: 'Beer Sheva', members: 12 },
-    { city: 'Herzliya', members: 10 },
-    { city: 'Ramat Gan', members: 8 },
-    { city: 'Netanya', members: 6 },
-    { city: 'Other Cities', members: 29 },
+  const companies = [
+    { name: 'Vetology', members: 12, type: 'Veterinary Software' },
+    { name: 'PetMedix', members: 8, type: 'Digital Health' },
+    { name: 'VetTech Solutions', members: 15, type: 'Practice Management' },
+    { name: 'Animal Data Labs', members: 6, type: 'Data Analytics' },
+    { name: 'VetCloud', members: 9, type: 'Cloud Services' },
+    { name: 'SmartVet AI', members: 7, type: 'AI & Machine Learning' },
+    { name: 'MobiVet', members: 5, type: 'Mobile Solutions' },
+    { name: 'VetConnect', members: 4, type: 'Telemedicine' },
   ];
 
   return (
@@ -121,37 +121,40 @@ export default function MappingCommunity() {
       <section className="py-16 px-4">
         <div className="container-custom">
           <h2 className="text-3xl font-bold text-center mb-12">
-            Geographic Presence
+            Veterinary Tech Companies in Israel
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div>
-              <h3 className="text-xl font-semibold mb-6">Members by City</h3>
+              <h3 className="text-xl font-semibold mb-6">Leading Companies</h3>
               <div className="space-y-3">
-                {locations.map((location, index) => (
+                {companies.map((company, index) => (
                   <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
                     <div className="flex items-center space-x-3">
-                      <MapPin className="h-4 w-4 text-primary" />
-                      <span className="font-medium">{location.city}</span>
+                      <Building2 className="h-4 w-4 text-primary" />
+                      <div>
+                        <span className="font-medium block">{company.name}</span>
+                        <span className="text-xs text-muted-foreground">{company.type}</span>
+                      </div>
                     </div>
-                    <Badge variant="secondary">{location.members}</Badge>
+                    <Badge variant="secondary">{company.members}</Badge>
                   </div>
                 ))}
               </div>
             </div>
             <div className="text-center lg:text-left">
-              <h3 className="text-xl font-semibold mb-4">From Tel Aviv to the World</h3>
+              <h3 className="text-xl font-semibold mb-4">Innovation in Veterinary Technology</h3>
               <p className="text-muted-foreground mb-6">
-                While our roots are in Israel's vibrant tech hubs, our community extends globally, 
-                connecting veterinarians in technology across continents.
+                Israeli veterinary tech companies are at the forefront of innovation, developing cutting-edge 
+                solutions for animal healthcare, practice management, and digital transformation.
               </p>
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <Card className="p-4 text-center">
-                  <div className="text-2xl font-bold text-primary">95%</div>
-                  <div className="text-sm text-muted-foreground">In Israel</div>
+                  <div className="text-2xl font-bold text-primary">68</div>
+                  <div className="text-sm text-muted-foreground">Vet Members</div>
                 </Card>
                 <Card className="p-4 text-center">
-                  <div className="text-2xl font-bold text-primary">5%</div>
-                  <div className="text-sm text-muted-foreground">International</div>
+                  <div className="text-2xl font-bold text-primary">8</div>
+                  <div className="text-sm text-muted-foreground">Companies</div>
                 </Card>
               </div>
             </div>
