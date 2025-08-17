@@ -13,6 +13,7 @@ import Resources from "./pages/Resources";
 import Careers from "./pages/Careers";
 import JoinUs from "./pages/JoinUs";
 import Contact from "./pages/Contact";
+import MappingCommunity from "./pages/MappingCommunity";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +34,7 @@ const App = () => (
               <Route path="/collaboration" element={<Collaboration />} />
               <Route path="/resources" element={<Resources />} />
               <Route path="/careers" element={<Careers />} />
+              <Route path="/mapping" element={<MappingCommunity />} />
               <Route path="/join" element={<JoinUs />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="*" element={<NotFound />} />
