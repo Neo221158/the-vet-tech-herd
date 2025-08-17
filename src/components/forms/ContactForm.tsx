@@ -6,8 +6,8 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Send } from 'lucide-react';
-import { contactFormSchema, type ContactFormData } from '@/lib/validations';
-import { sanitizeString, sanitizeEmail, checkRateLimit } from '@/lib/security';
+import { GoogleFormsService, isValidEmail, checkFormRateLimit } from '@/lib/google-forms';
+import { sanitizeString, sanitizeEmail } from '@/lib/security';
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -25,16 +25,39 @@ export function ContactForm() {
 
     try {
       // Check rate limiting
-      if (!checkRateLimit('contact-form', 3, 300000)) { // 3 attempts per 5 minutes
+      if (!checkFormRateLimit('contact-form', 3, 300000)) { // 3 attempts per 5 minutes
         toast({
           title: "Too many attempts",
-          description: "Please wait before submitting again.",
+          description: "Please wait 5 minutes before submitting again.",
           variant: "destructive",
         });
+        setIsSubmitting(false);
         return;
       }
 
-      // Sanitize and validate form data
+      // Validate required fields
+      if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+        toast({
+          title: "Missing required fields",
+          description: "Please fill in all required fields.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Validate email
+      if (!isValidEmail(formData.email)) {
+        toast({
+          title: "Invalid email",
+          description: "Please enter a valid email address.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Sanitize form data
       const sanitizedData = {
         name: sanitizeString(formData.name),
         email: sanitizeEmail(formData.email),
@@ -42,23 +65,24 @@ export function ContactForm() {
         message: sanitizeString(formData.message),
       };
 
-      // Validate with Zod schema
-      const validatedData = contactFormSchema.parse(sanitizedData);
+      // Submit to Google Forms
+      const success = await GoogleFormsService.submitContactForm(sanitizedData);
       
-      // TODO: Replace with actual Supabase submission
-      // This requires connecting to Supabase first
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      toast({
-        title: "Message sent successfully!",
-        description: "Thank you for reaching out. We'll get back to you soon.",
-      });
-      
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      if (success) {
+        toast({
+          title: "Message sent successfully!",
+          description: "Thank you for reaching out. We'll get back to you soon.",
+        });
+        
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        throw new Error('Submission failed');
+      }
     } catch (error: any) {
+      console.error('Contact form submission error:', error);
       toast({
         title: "Error sending message",
-        description: error?.issues?.[0]?.message || "Please try again later.",
+        description: "Please try again later. If the problem persists, contact us directly.",
         variant: "destructive",
       });
     } finally {

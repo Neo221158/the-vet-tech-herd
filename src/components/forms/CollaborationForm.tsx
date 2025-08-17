@@ -7,6 +7,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Lightbulb } from 'lucide-react';
+import { GoogleFormsService, isValidEmail, checkFormRateLimit } from '@/lib/google-forms';
+import { sanitizeString, sanitizeEmail } from '@/lib/security';
 
 export function CollaborationForm() {
   const [formData, setFormData] = useState({

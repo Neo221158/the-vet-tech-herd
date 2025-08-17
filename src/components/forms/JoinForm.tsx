@@ -7,6 +7,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Users } from 'lucide-react';
+import { GoogleFormsService, isValidEmail, checkFormRateLimit } from '@/lib/google-forms';
+import { sanitizeString, sanitizeEmail } from '@/lib/security';
 
 export function JoinForm() {
   const [formData, setFormData] = useState({
@@ -27,28 +29,79 @@ export function JoinForm() {
     setIsSubmitting(true);
 
     try {
-      // Simulate form submission
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Rate limiting check
+      if (!checkFormRateLimit('member-registration', 3, 300000)) {
+        toast({
+          title: "Too many attempts",
+          description: "Please wait 5 minutes before submitting again.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Validate required fields
+      if (!formData.firstName || !formData.lastName || !formData.email || !formData.currentRole) {
+        toast({
+          title: "Missing required fields",
+          description: "Please fill in all required fields marked with *",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Validate email
+      if (!isValidEmail(formData.email)) {
+        toast({
+          title: "Invalid email",
+          description: "Please enter a valid email address.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Sanitize form data
+      const sanitizedData = {
+        firstName: sanitizeString(formData.firstName),
+        lastName: sanitizeString(formData.lastName),
+        email: sanitizeEmail(formData.email),
+        currentRole: sanitizeString(formData.currentRole),
+        experience: sanitizeString(formData.experience),
+        interests: sanitizeString(formData.interests),
+        background: sanitizeString(formData.background),
+        linkedin: sanitizeString(formData.linkedin),
+      };
+
+      // Submit to Google Forms
+      const success = await GoogleFormsService.submitMemberRegistration(sanitizedData);
       
-      toast({
-        title: "Welcome to the Herd! 🎉",
-        description: "Thank you for joining. You'll receive a welcome email with next steps.",
-      });
-      
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        currentRole: '',
-        experience: '',
-        interests: '',
-        background: '',
-        linkedin: '',
-      });
+      if (success) {
+        toast({
+          title: "Welcome to the Herd! 🎉",
+          description: "Thank you for joining. You'll receive a welcome email with next steps.",
+        });
+        
+        // Clear form
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          currentRole: '',
+          experience: '',
+          interests: '',
+          background: '',
+          linkedin: '',
+        });
+      } else {
+        throw new Error('Submission failed');
+      }
     } catch (error) {
+      console.error('Form submission error:', error);
       toast({
         title: "Error submitting application",
-        description: "Please try again later.",
+        description: "Please try again later. If the problem persists, contact us directly.",
         variant: "destructive",
       });
     } finally {
