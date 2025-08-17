@@ -29,7 +29,7 @@ export default function Contact() {
                 <div className="space-y-4">
                   {[
                     { icon: Mail, title: 'Email', value: 'isrvettech@gmail.com', href: 'mailto:isrvettech@gmail.com' },
-                    { icon: Linkedin, title: 'LinkedIn', value: 'The Vet Tech Herd', href: '#' },
+                    { icon: Linkedin, title: 'LinkedIn', value: 'The Vet Tech Herd', href: 'https://www.linkedin.com/groups/8502307/' },
                     { icon: MessageCircle, title: 'WhatsApp Community', value: 'Join our chat', href: '#' },
                     { icon: MapPin, title: 'Location', value: 'Global Community', href: null },
                   ].map((contact, index) => (
