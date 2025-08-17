@@ -28,7 +28,7 @@ export default function Contact() {
                 <h2 className="text-2xl font-bold mb-6">Contact Information</h2>
                 <div className="space-y-4">
                   {[
-                    { icon: Mail, title: 'Email', value: 'hello@vettechherd.com', href: 'mailto:hello@vettechherd.com' },
+                    { icon: Mail, title: 'Email', value: 'isrvettech@gmail.com', href: 'mailto:isrvettech@gmail.com' },
                     { icon: Linkedin, title: 'LinkedIn', value: 'The Vet Tech Herd', href: '#' },
                     { icon: MessageCircle, title: 'WhatsApp Community', value: 'Join our chat', href: '#' },
                     { icon: MapPin, title: 'Location', value: 'Global Community', href: null },
