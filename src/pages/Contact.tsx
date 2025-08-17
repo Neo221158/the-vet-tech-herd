@@ -31,7 +31,7 @@ export default function Contact() {
                     { icon: Mail, title: 'Email', value: 'isrvettech@gmail.com', href: 'mailto:isrvettech@gmail.com' },
                     { icon: Linkedin, title: 'LinkedIn', value: 'The Vet Tech Herd', href: 'https://www.linkedin.com/groups/8502307/' },
                     { icon: MessageCircle, title: 'WhatsApp Community', value: 'Join our chat', href: 'https://chat.whatsapp.com/HAtlBuHPNIrGG0j4jk3fqO?mode=ems_copy_h_c' },
-                    { icon: MapPin, title: 'Location', value: 'Global Community', href: null },
+                    { icon: MapPin, title: 'Location', value: 'Israel', href: null },
                   ].map((contact, index) => (
                     <div key={index} className="flex items-center gap-4">
                       <div className="p-3 bg-gradient-to-br from-primary to-tech-accent rounded-lg">
